@@ -14,41 +14,10 @@ const DB_PATH = path.join(__dirname, "db.json");
 // --- MIDDLEWARE SETUP ---
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/api/public/parts", async (req, res) => {
-  console.log("Public /parts route HIT!"); // Debug: Check server console
-  try {
-    const db = await readDB();
-    console.log("readDB success, parts count:", db.parts.length); // Debug: Should log 7
-    res.json(db.parts);
-  } catch (error) {
-    console.error("readDB error:", error.message); // Debug: Logs if file issue
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-});
-
-app.get("/api/public/jobs", async (req, res) => {
-  try {
-    const db = await readDB();
-    console.log("readDB success for jobs, job count:", db.jobCards.length); // Debug: Should log 7
-    res.json(db.jobCards);
-  } catch (error) {
-    console.error("readDB error:", error.message);
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-});
-app.get("/api/public/users", async (req, res) => {
-  console.log("Public /users route HIT!"); // Debug
-  try {
-    const db = await readDB();
-    console.log("readDB success for jobs, job count:", db.users.length); // Debug: Should log 7
-    res.json(db.users);
-  } catch (error) {
-    console.error("readDB error:", error.message);
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-});
+// FIX: { index: false } prevents express from serving index.html by default at "/"
+// This allows us to serve landing.html at the root instead.
+app.use(express.static(path.join(__dirname, "public"), { index: false }));
 
 // --- DB HELPER FUNCTIONS ---
 async function readDB() {
@@ -98,6 +67,33 @@ const checkRole = (roles) => {
 };
 
 // --- API ROUTES ---
+
+app.get("/api/public/parts", async (req, res) => {
+  console.log("Public /parts route HIT!");
+  try {
+    const db = await readDB();
+    res.json(db.parts);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+app.get("/api/public/jobs", async (req, res) => {
+  try {
+    const db = await readDB();
+    res.json(db.jobCards);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+app.get("/api/public/users", async (req, res) => {
+  try {
+    const db = await readDB();
+    res.json(db.users);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
 
 // 1. Auth
 app.post("/api/auth/login", async (req, res) => {
@@ -433,6 +429,13 @@ app.get("/db.json/:key", async (req, res) => {
 
 // --- ROOT & SERVER ---
 app.get("/api", (req, res) => res.json({ message: "API Running" }));
+
+// FIX: Explicitly serve landing.html at the root URL
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "public", "landing.html"))
+);
+
+// Fallback to landing page for unknown routes
 app.use((req, res) =>
   res.sendFile(path.join(__dirname, "public", "landing.html"))
 );

@@ -207,60 +207,6 @@
       margin: 15px 0;
     }
 
-    /* --- LOGIN MODAL --- */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      position: relative;
-      animation: slideDown 0.3s ease;
-    }
-
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #aaa;
-    }
-
-    .modal-input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-    }
-
-    @keyframes slideDown {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -281,7 +227,7 @@
       <a href="#services">Services</a>
       <a href="#gallery">Gallery</a>
       <a href="#pricing">Pricing</a>
-      <a href="#" onclick="openLoginModal()">Login</a>
+      <a href="index.html">Login</a>
     </nav>
   </header>
 
@@ -289,7 +235,7 @@
     <div class="hero-content">
       <h1>Premium Vehicle Care</h1>
       <p>Expert mechanics, trusted service, and transparent pricing.</p>
-      <button class="btn" onclick="openLoginModal()">Book Service</button>
+      <button class="btn" onclick="window.location.href='index.html'">Book Service</button>
     </div>
   </section>
 
@@ -319,7 +265,7 @@
     <h3 class="section-title">Our Work</h3>
     <div class="gallery">
       <img src="images/img 1.webp" alt="Service 1" />
-      <img src="https://images.unsplash.com/photo-1486262715619-01b8c247a552?q=80&w=800&auto=format" alt="Service 2" />
+      <img src="images/img 2.avif" alt="Service 2" />
       <img src="images/img 3.0.jpg" alt="Service 3" />
       <img src="images/img 4.0.webp" alt="Service 4" />
       <img src="images/img 5.0.jpg" alt="Service 5" />
@@ -346,53 +292,6 @@
       </div>
     </div>
   </section>
-
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeLoginModal()">&times;</span>
-      <h2>Welcome Back</h2>
-      <p>Please login to access the dashboard</p>
-
-      <input type="text" id="username" class="modal-input" placeholder="Username" required>
-      <input type="password" id="password" class="modal-input" placeholder="Password" required>
-
-      <button type="button" class="btn" style="width:100%; margin-top:10px;" onclick="handleLogin()">Sign In</button>
-    </div>
-  </div>
-
-  <script>
-    // --- 1. Modal Logic ---
-    const modal = document.getElementById("loginModal");
-
-    function openLoginModal() {
-      modal.style.display = "flex";
-    }
-
-    function closeLoginModal() {
-      modal.style.display = "none";
-    }
-
-    // Close modal if clicking outside the box
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    // --- 2. Redirect Logic ---
-    function handleLogin() {
-      const usernameField = document.getElementById("username");
-      const username = usernameField.value;
-
-      // Check if username is empty
-      if (username.trim() !== "") {
-        // Redirect to index.html
-        window.location.href = "index.html";
-      } else {
-        alert("Please enter a username to login.");
-      }
-    }
-  </script>
 
 </body>
 
