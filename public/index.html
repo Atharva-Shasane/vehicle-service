@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Service Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Vehicle Service Center</h1>
+            <div id="user-info" class="hidden">
+                <div class="user-details">
+                    <span>Welcome,</span>
+                    <span id="user-fullname">User</span>
+                </div>
+                <button id="logout-button">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="app-container">
+
+        <section id="login-view" class="auth-card">
+            <div class="auth-header">
+                <h2>Login</h2>
+                <p>Access your service dashboard</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </section>
+
+        <section id="customer-dashboard" class="dashboard hidden">
+            <div class="section-header">
+                <h2>My Service Requests</h2>
+                <p>Track the status of your vehicle repairs</p>
+            </div>
+
+            <div id="customer-status-list" class="card-grid"></div>
+
+            <hr class="divider">
+
+            <div class="form-card">
+                <h3>Request New Service</h3>
+                <form id="customer-request-form">
+                    <div class="form-group">
+                        <label for="vehicle-plate">Vehicle Number Plate</label>
+                        <input type="text" id="vehicle-plate" placeholder="e.g., MH-12-AB-1234" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue-description">Describe the Issue</label>
+                        <textarea id="issue-description" rows="3" placeholder="What seems to be the problem?"
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Request</button>
+                    <p id="customer-request-success" class="success-message"></p>
+                </form>
+            </div>
+        </section>
+
+        <section id="mechanic-dashboard" class="dashboard hidden">
+            <div class="section-header">
+                <h2>My Assigned Jobs</h2>
+                <p>Manage parts and update status</p>
+            </div>
+
+            <div id="mechanic-job-list" class="card-grid"></div>
+
+            <div id="log-part-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Log Parts Usage</h3>
+                        <span class="close-button" id="close-modal">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-subtitle">Job ID: <span id="modal-job-id"></span></p>
+                        <form id="log-part-form">
+                            <input type="hidden" id="modal-job-id-input">
+                            <div class="form-group">
+                                <label for="part-select">Select Part</label>
+                                <select id="part-select" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="part-quantity">Quantity Used</label>
+                                <input type="number" id="part-quantity" min="1" value="1" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Confirm Log</button>
+                            <p id="log-part-error" class="error-message"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin-dashboard" class="dashboard hidden">
+            <div class="section-header">
+                <h2>Admin Dashboard</h2>
+                <p>Manage active repairs and assignments</p>
+            </div>
+
+            <div id="admin-job-list" class="card-grid"></div>
+
+            <hr class="divider">
+
+            <div class="section-header">
+                <h2>History & Dispatched</h2>
+                <p>Completed jobs history</p>
+            </div>
+            <div id="admin-dispatched-list" class="card-grid"></div>
+
+            <hr class="divider">
+
+            <div class="inventory-section">
+                <h2>Parts Inventory</h2>
+                <div id="admin-parts-list" class="inventory-grid"></div>
+            </div>
+
+            <div id="add-stock-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Update Stock</h3>
+                        <span class="close-button" id="close-stock-modal">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-subtitle">Part: <span id="modal-part-name"></span></p>
+                        <form id="add-stock-form">
+                            <input type="hidden" id="modal-part-id">
+                            <div class="form-group">
+                                <label for="stock-quantity">Quantity to Add</label>
+                                <input type="number" id="stock-quantity" min="1" value="10" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Add Stock</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
