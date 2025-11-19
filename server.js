@@ -443,3 +443,13 @@ app.use((req, res) =>
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
+
+/* 
+http://localhost:3000/api/public/parts
+http://localhost:3000/api/public/jobs
+http://localhost:3000/api/public/users
+
+http://localhost:3000/api/db.json/parts
+http://localhost:3000/api/db.json/jobCards
+http://localhost:3000/api/db.json/users
+*/
