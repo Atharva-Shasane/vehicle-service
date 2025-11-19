@@ -434,7 +434,7 @@ app.get("/db.json/:key", async (req, res) => {
 // --- ROOT & SERVER ---
 app.get("/api", (req, res) => res.json({ message: "API Running" }));
 app.use((req, res) =>
-  res.sendFile(path.join(__dirname, "public", "index.html"))
+  res.sendFile(path.join(__dirname, "public", "landing.html"))
 );
 
 app.listen(PORT, () =>
